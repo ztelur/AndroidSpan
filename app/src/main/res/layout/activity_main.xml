@@ -10,11 +10,12 @@
     tools:context="com.carpediem.homer.spannedtest.MainActivity">
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/textview"
         android:minHeight="100dp"
         android:gravity="center"
+        android:background="#eeaaee"
         android:text="Hello World!" />
     <Button
         android:layout_width="wrap_content"

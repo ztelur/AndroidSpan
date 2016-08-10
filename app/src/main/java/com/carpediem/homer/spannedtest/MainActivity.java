@@ -3,6 +3,7 @@ package com.carpediem.homer.spannedtest;
 import android.animation.ArgbEvaluator;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
+import android.content.Intent;
 import android.graphics.BlurMaskFilter;
 import android.graphics.Color;
 import android.graphics.EmbossMaskFilter;
@@ -52,6 +53,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mTvTextView.setText(spannableString);
         mSmoothInterpolator = new AccelerateDecelerateInterpolator();
         setTitle(HEAD);
+//        startActivity(new Intent(this,HTextActivity.class));
     }
 
     @Override
@@ -74,15 +76,58 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //        useMaskFilterSpan();
 //        useJumpUpSpan();
 //        useMaskFilterSpan();
-        useWaveSpanGroupAnimation();
+//        useWaveSpanGroupAnimation();
 //        useFireWorkGroupAnimation();
 //        useTypeWriterSpanGroup();
 //        useBubbleSpan();
+//        useRainBowSpan();
+//        useLineSpan();
+        useSparkleSpan();
 //        useRectSpan();
 //        animateColorSpan();
 //        useLetterLineSpan();
     }
-
+    private void useSparkleSpan() {
+        final SpannableString spannableString = new SpannableString(CONTENT);
+        SparkSpan span  = new SparkSpan(this);
+        spannableString.setSpan(span,0,spannableString.length()-1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        mTvTextView.setText(spannableString);
+        ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(span, SparkSpan.SPARK_SPAN_FLOAT_PROPERTY,
+                0.0f, 1.0f);
+        objectAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                //refresh
+                mTvTextView.setText(spannableString);
+            }
+        });
+        objectAnimator.setInterpolator(mSmoothInterpolator);
+        objectAnimator.setDuration(600);
+        objectAnimator.start();
+    }
+    private void useLineSpan() {
+        final SpannableString spannableString = new SpannableString(CONTENT);
+        LineSpan span  = new LineSpan();
+        spannableString.setSpan(span,0,spannableString.length()-1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        mTvTextView.setText(spannableString);
+    }
+    private void useRainBowSpan() {
+        final SpannableString spannableString = new SpannableString(CONTENT);
+        RainBowSpan span  = new RainBowSpan();
+        spannableString.setSpan(span,0,spannableString.length()-1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        mTvTextView.setText(spannableString);
+        ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(span, RainBowSpan.RAIN_BOW_SPAN_FLOAT_PROPERTY, 0.0f, 1.0f);
+        objectAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                //refresh
+                mTvTextView.setText(spannableString);
+            }
+        });
+        objectAnimator.setInterpolator(mSmoothInterpolator);
+        objectAnimator.setDuration(600);
+        objectAnimator.start();
+    }
     private void useBulletSpan() {
         /**
          * public BulletSpan (int gapWidth, int color)

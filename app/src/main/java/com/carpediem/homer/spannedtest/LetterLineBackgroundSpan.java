@@ -4,6 +4,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
 import android.text.style.LineBackgroundSpan;
+import android.util.Log;
 
 import java.util.Arrays;
 
@@ -29,6 +30,7 @@ public class LetterLineBackgroundSpan implements LineBackgroundSpan {
 
     @Override
     public void drawBackground(Canvas c, Paint p, int left, int right, int top, int baseline, int bottom, CharSequence text, int start, int end, int lnum) {
+        Log.e("test","the size is"+start+" "+end+" "+lnum+""+baseline+" "+bottom);
         float charx = left;
         for(int i = start ; i<end; i++) {
             String charAt = extractText(text, i, i + 1);
