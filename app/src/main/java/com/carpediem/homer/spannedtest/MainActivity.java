@@ -82,10 +82,28 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //        useBubbleSpan();
 //        useRainBowSpan();
 //        useLineSpan();
-        useSparkleSpan();
+//        useSparkleSpan();
+        useFallSpan();
 //        useRectSpan();
 //        animateColorSpan();
 //        useLetterLineSpan();
+    }
+    private void useFallSpan() {
+        final SpannableString spannableString = new SpannableString(CONTENT);
+        FallSpan span  = new FallSpan();
+        spannableString.setSpan(span,0,spannableString.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(span, FallSpan.FALL_SPAN_FLOAT_PROPERTY,
+                0.0f, 1.0f);
+        objectAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                //refresh
+                mTvTextView.setText(spannableString);
+            }
+        });
+        objectAnimator.setInterpolator(mSmoothInterpolator);
+        objectAnimator.setDuration(1000);
+        objectAnimator.start();
     }
     private void useSparkleSpan() {
         final SpannableString spannableString = new SpannableString(CONTENT);
